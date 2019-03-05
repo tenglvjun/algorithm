@@ -5,11 +5,11 @@ class Heap
 {
   public:
     Heap(bool maxHeapify = true);
-    Heap(double *data, int len, bool maxHeapify = true);
+    Heap(int *data, int len, bool maxHeapify = true);
     virtual ~Heap();
 
   public:
-    void Add(double v);
+    void Add(int v);
     void Output();
 
   protected:
@@ -17,9 +17,10 @@ class Heap
     void Swap(int i, int j);
     void TrackDown(int node);
     void TrackUp(int node);
+    void Alloc();
 
   private:
-    double *m_data;
+    int *m_data;
     int m_len;
     int m_cap;
     bool m_isMaxHeapify;

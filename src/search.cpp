@@ -1,9 +1,9 @@
 #include "search.h"
 
-double FindMaximum(const double *data, const int len, int &pos)
+int FindMaximum(const int *data, const int len, int &pos)
 {
     pos = 0;
-    double max = data[0];
+    int max = data[0];
 
     for (int i = 0; i < len; i++)
     {
@@ -17,7 +17,7 @@ double FindMaximum(const double *data, const int len, int &pos)
     return max;
 }
 
-double FindPeakOneD(const double *data, const int begin, const int end, int &pos)
+int FindPeakOneD(const int *data, const int begin, const int end, int &pos)
 {
     if (begin == end)
     {
@@ -42,7 +42,7 @@ double FindPeakOneD(const double *data, const int begin, const int end, int &pos
     return FindPeakOneD(data, right, end, pos);
 }
 
-double FindPeakTwoD(double **data, const int cols, const int s_row, const int e_row)
+int FindPeakTwoD(int **data, const int cols, const int s_row, const int e_row)
 {
     int c;
     if (s_row == e_row)
@@ -51,7 +51,7 @@ double FindPeakTwoD(double **data, const int cols, const int s_row, const int e_
     }
     
     int middle = (s_row + e_row) / 2;
-    double max = FindMaximum(data[middle], cols, c);
+    int max = FindMaximum(data[middle], cols, c);
 
     if ((max >= data[middle-1][c]) && (max >= data[middle+1][c]))
     {
