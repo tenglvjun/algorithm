@@ -13,8 +13,10 @@ class Heap
     void Output();
 
   protected:
-    void Heapify(double *data, int len);
+    void Heapify();
     void Swap(int i, int j);
+    void TrackDown(int node);
+    void TrackUp(int node);
 
   private:
     double *m_data;
