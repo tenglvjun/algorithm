@@ -83,20 +83,25 @@ void ContinueContainer::PushBack(const int v)
     {
         Resize(m_cap * 2);
     }
-    m_data[m_len++] = v;
+    m_data[m_len] = v;
+    m_len++;
 }
 
-void ContinueContainer::Erase(const int idx)
+int ContinueContainer::Erase(const int idx)
 {
     assert(m_len > idx);
+
+    int value = m_data[idx];
+
     if (idx == (m_len - 1))
     {
         m_len--;
-        return;
+        return value;
     }
 
     memcpy(m_data + idx, m_data + idx + 1, sizeof(int) * (m_len - idx - 1));
     m_len--;
+    return value;
 }
 
 void ContinueContainer::Output()

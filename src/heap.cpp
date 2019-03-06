@@ -1,7 +1,6 @@
 #include "heap.h"
 #include "macro.h"
-#include <memory.h>
-#include <iostream>
+#include <assert.h>
 #include <cmath>
 
 Heap::Heap(bool maxHeapify /* = true */)
@@ -25,6 +24,26 @@ void Heap::PushBack(const int v)
     TrackUp(m_len - 1);
 }
 
+int Heap::PopFront()
+{
+    Swap(0, (m_len - 1));
+    int value = ContinueContainer::Erase(m_len - 1);
+    TrackDown(0);
+    return value;
+}
+
+void Heap::Sort()
+{
+    int len = m_len;
+    int *buf = new int[len];
+    int idx = 0;
+    while (m_len > 0)
+    {
+        buf[idx++] = PopFront();
+    }
+    Resize(buf, len);
+}
+
 void Heap::Heapify()
 {
     int height = (int)log2(m_len);
@@ -39,14 +58,13 @@ void Heap::Heapify()
 
 void Heap::TrackDown(const int node)
 {
-    int height = (int)log2(m_len);
-    if (node >= pow(2, height))
+    int left = node * 2 + 1;
+    int right = node * 2 + 2;
+
+    if (left >= m_len)
     {
         return;
     }
-
-    int left = node * 2 + 1;
-    int right = node * 2 + 2;
 
     int sid;
     int value;
@@ -54,12 +72,18 @@ void Heap::TrackDown(const int node)
     if (m_isMaxHeapify)
     {
         value = m_data[node] < m_data[left] ? m_data[left] : m_data[node];
-        value = value < m_data[right] ? m_data[right] : value;
+        if (right < m_len)
+        {
+            value = value < m_data[right] ? m_data[right] : value;
+        }
     }
     else
     {
         value = m_data[node] > m_data[left] ? m_data[left] : m_data[node];
-        value = value > m_data[right] ? m_data[right] : value;
+        if (right < m_len)
+        {
+            value = value > m_data[right] ? m_data[right] : value;
+        }
     }
 
     if (value == m_data[node])
@@ -73,7 +97,7 @@ void Heap::TrackDown(const int node)
         TrackDown(left);
     }
 
-    if (value == m_data[right])
+    if ((right < m_len) && (value == m_data[right]))
     {
         Swap(node, right);
         TrackDown(right);

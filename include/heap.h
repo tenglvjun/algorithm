@@ -11,7 +11,9 @@ public:
   virtual ~Heap();
 
 public:
-  virtual void PushBack(const int v);
+  void PushBack(const int v);
+  int PopFront();
+  void Sort();
 
 protected:
   void Heapify();
