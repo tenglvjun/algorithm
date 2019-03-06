@@ -16,7 +16,6 @@ class ContinueContainer
   public:
     void Resize(const int cap);
     void Resize(const int *data, const int len);
-    void Swap(const int i, const int j);
     void PushBack(const int v);
     int Erase(const int idx);
     void Insert(const int v, const int idx);

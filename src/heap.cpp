@@ -2,6 +2,7 @@
 #include "macro.h"
 #include <assert.h>
 #include <cmath>
+#include "tools.h"
 
 Heap::Heap(bool maxHeapify /* = true */)
     : ContinueContainer(), m_isMaxHeapify(maxHeapify)
@@ -26,7 +27,7 @@ void Heap::PushBack(const int v)
 
 int Heap::PopFront()
 {
-    Swap(0, (m_len - 1));
+    Swap(m_data, 0, (m_len - 1));
     int value = ContinueContainer::Erase(m_len - 1);
     TrackDown(0);
     return value;
@@ -93,13 +94,13 @@ void Heap::TrackDown(const int node)
 
     if (value == m_data[left])
     {
-        Swap(node, left);
+        Swap(m_data, node, left);
         TrackDown(left);
     }
 
     if ((right < m_len) && (value == m_data[right]))
     {
-        Swap(node, right);
+        Swap(m_data, node, right);
         TrackDown(right);
     }
 }
@@ -117,7 +118,7 @@ void Heap::TrackUp(const int node)
     {
         if (m_data[parent] < m_data[node])
         {
-            Swap(parent, node);
+            Swap(m_data, parent, node);
             TrackDown(parent);
             TrackUp(parent);
         }
@@ -126,7 +127,7 @@ void Heap::TrackUp(const int node)
     {
         if (m_data[parent] > m_data[node])
         {
-            Swap(parent, node);
+            Swap(m_data, parent, node);
             TrackDown(parent);
             TrackUp(parent);
         }

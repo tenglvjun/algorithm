@@ -126,15 +126,6 @@ void ContinueContainer::Insert(const int v, const int idx)
     m_len++;
 }
 
-void ContinueContainer::Swap(const int i, const int j)
-{
-    assert((m_len > i) && (m_len > j));
-
-    int tmp = m_data[i];
-    m_data[i] = m_data[j];
-    m_data[j] = tmp;
-}
-
 void ContinueContainer::Alloc()
 {
     SAFE_DELETE_ARRAY(m_data);
