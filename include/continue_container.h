@@ -19,12 +19,14 @@ class ContinueContainer
     void PushBack(const int v);
     void Erase(const int idx);
     void Insert(const int v, const int idx);
+    void Swap(const int i, const int j);
+    void Output();
 
   protected:
     void Alloc();
     void Dealloc();
 
-  private:
+  protected:
     int *m_data;
     int m_len;
     int m_cap;

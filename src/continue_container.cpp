@@ -2,6 +2,7 @@
 #include "macro.h"
 #include <memory.h>
 #include <assert.h>
+#include <iostream>
 
 #if !defined(DEFAULT_CONTINUE_CONTAINER_CAP)
 #define DEFAULT_CONTINUE_CONTAINER_CAP 10
@@ -99,6 +100,15 @@ void ContinueContainer::Erase(const int idx)
     m_len--;
 }
 
+void ContinueContainer::Output()
+{
+    for (int i = 0; i < m_len; i++)
+    {
+        std::cout << m_data[i] << "  ";
+    }
+    std::cout << std::endl;
+}
+
 void ContinueContainer::Insert(const int v, const int idx)
 {
     assert(m_len > idx);
@@ -110,6 +120,15 @@ void ContinueContainer::Insert(const int v, const int idx)
     memcpy(m_data + idx + 1, m_data + idx, sizeof(int) * (m_len - idx));
     m_data[idx] = v;
     m_len++;
+}
+
+void ContinueContainer::Swap(const int i, const int j)
+{
+    assert((m_len > i) && (m_len > j));
+
+    int tmp = m_data[i];
+    m_data[i] = m_data[j];
+    m_data[j] = tmp;
 }
 
 void ContinueContainer::Alloc()

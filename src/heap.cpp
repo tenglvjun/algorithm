@@ -5,43 +5,23 @@
 #include <cmath>
 
 Heap::Heap(bool maxHeapify /* = true */)
-    : m_data(nullptr), m_isMaxHeapify(maxHeapify), m_cap(10)
+    : ContinueContainer(), m_isMaxHeapify(maxHeapify)
 {
-    Alloc();
 }
 
 Heap::Heap(int *data, int len, bool maxHeapify /* = true */)
-    : m_isMaxHeapify(maxHeapify)
+    : ContinueContainer(data, len), m_isMaxHeapify(maxHeapify)
 {
-    m_cap = len * 2;
-    Alloc();
-
-    m_len = len;
-    for (int i = 0; i < m_len; i++)
-    {
-        m_data[i] = data[i];
-    }
-
     Heapify();
 }
 
 Heap::~Heap()
 {
-    SAFE_DELETE_ARRAY(m_data);
 }
 
 void Heap::Add(int v)
 {
     
-}
-
-void Heap::Output()
-{
-    for (int i = 0; i < m_len; i++)
-    {
-        std::cout << m_data[i] << "  ";
-    }
-    std::cout << std::endl;
 }
 
 void Heap::Heapify()
@@ -101,19 +81,4 @@ void Heap::TrackDown(int node)
 
 void Heap::TrackUp(int node)
 {
-}
-
-void Heap::Swap(int i, int j)
-{
-    int tmp = m_data[i];
-    m_data[i] = m_data[j];
-    m_data[j] = tmp;
-}
-
-void Heap::Alloc()
-{
-    SAFE_DELETE_ARRAY(m_data);
-    m_data = new int[m_cap];
-    memcpy(m_data, 0, sizeof(int) * m_cap);
-    m_len = 0;
 }

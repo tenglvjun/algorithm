@@ -1,7 +1,9 @@
 #if !defined(__HEAP_HEAD_FILE__)
 #define __HEAP_HEAD_FILE__
 
-class Heap
+#include "continue_container.h"
+
+class Heap : public ContinueContainer
 {
 public:
   Heap(bool maxHeapify = true);
@@ -10,19 +12,13 @@ public:
 
 public:
   void Add(int v);
-  void Output();
 
 protected:
   void Heapify();
-  void Swap(int i, int j);
   void TrackDown(int node);
   void TrackUp(int node);
-  void Alloc();
 
 private:
-  int *m_data;
-  int m_len;
-  int m_cap;
   bool m_isMaxHeapify;
 };
 
