@@ -83,8 +83,7 @@ void ContinueContainer::PushBack(const int v)
     {
         Resize(m_cap * 2);
     }
-
-    m_data[++m_len] = v;
+    m_data[m_len++] = v;
 }
 
 void ContinueContainer::Erase(const int idx)

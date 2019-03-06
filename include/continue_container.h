@@ -14,11 +14,13 @@ class ContinueContainer
     int &operator[](const int idx);
 
   public:
+    virtual void PushBack(const int v);
+    virtual void Erase(const int idx);
+    virtual void Insert(const int v, const int idx);
+
+  public:
     void Resize(const int cap);
     void Resize(const int *data, const int len);
-    void PushBack(const int v);
-    void Erase(const int idx);
-    void Insert(const int v, const int idx);
     void Swap(const int i, const int j);
     void Output();
 

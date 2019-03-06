@@ -6,6 +6,8 @@ int main()
 
     Heap heap(data, 11);
     heap.Output();
+    heap.PushBack(35);
+    heap.Output();
 
     return 0;
 }

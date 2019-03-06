@@ -11,12 +11,12 @@ public:
   virtual ~Heap();
 
 public:
-  void Add(int v);
+  virtual void PushBack(const int v);
 
 protected:
   void Heapify();
-  void TrackDown(int node);
-  void TrackUp(int node);
+  void TrackDown(const int node);
+  void TrackUp(const int node);
 
 private:
   bool m_isMaxHeapify;

@@ -19,9 +19,10 @@ Heap::~Heap()
 {
 }
 
-void Heap::Add(int v)
+void Heap::PushBack(const int v)
 {
-    
+    ContinueContainer::PushBack(v);
+    TrackUp(m_len - 1);
 }
 
 void Heap::Heapify()
@@ -36,7 +37,7 @@ void Heap::Heapify()
     }
 }
 
-void Heap::TrackDown(int node)
+void Heap::TrackDown(const int node)
 {
     int height = (int)log2(m_len);
     if (node >= pow(2, height))
@@ -79,6 +80,31 @@ void Heap::TrackDown(int node)
     }
 }
 
-void Heap::TrackUp(int node)
+void Heap::TrackUp(const int node)
 {
+    if (0 == node)
+    {
+        return;
+    }
+
+    int parent = (node - 1) / 2;
+
+    if (m_isMaxHeapify)
+    {
+        if (m_data[parent] < m_data[node])
+        {
+            Swap(parent, node);
+            TrackDown(parent);
+            TrackUp(parent);
+        }
+    }
+    else
+    {
+        if (m_data[parent] > m_data[node])
+        {
+            Swap(parent, node);
+            TrackDown(parent);
+            TrackUp(parent);
+        }
+    }
 }
