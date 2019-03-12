@@ -121,7 +121,58 @@ void BinarySearchTree::RemoveNode(const int v)
         value = node->Value();
         if (value == v)
         {
-            
+            BinaryTreeNode *parent = node->Parent();
+
+            if ((!node->Left()) && (!node->Right())) // leaf node
+            {
+                if (parent->Left() == node)
+                {
+                    parent->Left(nullptr);
+                }
+                else
+                {
+                    parent->Right(nullptr);
+                }
+            }
+            else if ((!node->Left()) || (!node->Right())) // node only has one-side subtree
+            {
+                BinaryTreeNode *subNode = (node->Left()) ? node->Left() : node->Right();
+
+                if (parent->Left() == node) // node is left sub-tree
+                {
+                    parent->Left(subNode);
+                    subNode->Parent(parent);
+                }
+                else
+                {
+                    parent->Right(subNode);
+                    subNode->Parent(parent);
+                }
+            }
+            else // node has both-side subtrees
+            {
+                BinaryTreeNode *left = node->Left();
+                BinaryTreeNode *right = node->Right();
+                BinaryTreeNode *rightest_leaf = MostLeftLeaf(right);
+
+                rightest_leaf->Left(left);
+                left->Parent(rightest_leaf);
+
+                right->Parent(parent);
+
+                if (parent->Left() == node) // node is left sub-tree
+                {
+                    parent->Left(right);
+                }
+                else
+                {
+                    parent->Right(right);
+                }
+
+                parent->Left(right);
+            }
+
+            SAFE_DELETE(node);
 
             break;
         }
@@ -173,4 +224,38 @@ void BinarySearchTree::RemoveSubTree(BinaryTreeNode *node)
 
         SAFE_DELETE(node);
     }
+}
+
+BinaryTreeNode *BinarySearchTree::MostLeftLeaf(BinaryTreeNode *node)
+{
+    BinaryTreeNode *ret = node;
+
+    if (!ret)
+    {
+        return ret;
+    }
+
+    while (ret->Left())
+    {
+        ret = ret->Left();
+    }
+
+    return ret;
+}
+
+BinaryTreeNode *BinarySearchTree::MostRightLeaf(BinaryTreeNode *node)
+{
+    BinaryTreeNode *ret = node;
+
+    if (!ret)
+    {
+        return ret;
+    }
+
+    while (ret->Right())
+    {
+        ret = ret->Right();
+    }
+
+    return ret;
 }

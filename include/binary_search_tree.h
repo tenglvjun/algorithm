@@ -36,6 +36,8 @@ class BinarySearchTree
   public:
     void AddNode(const int v);
     void RemoveNode(const int v);
+    BinaryTreeNode* MostLeftLeaf(BinaryTreeNode *node);
+    BinaryTreeNode* MostRightLeaf(BinaryTreeNode *node);
 
   protected:
     void Clear();
